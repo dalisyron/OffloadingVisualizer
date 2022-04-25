@@ -102,14 +102,16 @@ def generated_edges():
         add = edgize(state, add)
         edges += add
 
-    return set(edges)
+    return edges
 
 
 if __name__ == "__main__":
     run(N, M, Q)
     from formula_edge_generator import FormulaEdgeGenerator
     feg = FormulaEdgeGenerator(Q=500, M=10, N=20)
-    edges = feg.get_edges_based_on_formula()
+    edges_list = feg.get_edges_based_on_formula()
+    from helper import report_duplicates
+    report_duplicates(edges_list)
+    edges = set(edges_list)
     edges2 = generated_edges()
-    print(len(edges.difference(edges2)))
-    print(len(edges2.difference(edges)))
+    report_duplicates(edges2)

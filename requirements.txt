@@ -1,0 +1,2 @@
+python-igraph==0.9.10
+pycairo==1.21.0

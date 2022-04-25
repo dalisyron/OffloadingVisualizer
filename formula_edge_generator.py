@@ -162,7 +162,7 @@ class FormulaEdgeGenerator:
         for y in range(1, self.M + 1):
             edges += self.case9_edges((0, y, 0))
         
-        return set(edges)
+        return edges
 
 feg = FormulaEdgeGenerator(Q=500, M=10, N=20)
 edges = feg.get_edges_based_on_formula()
