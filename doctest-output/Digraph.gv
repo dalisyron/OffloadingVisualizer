@@ -1,0 +1,182 @@
+digraph {
+	graph [label="Markov Chain for Task Offloading" labelloc=t margin=5 splines=false]
+	node [fixedsize=true fontsize=12 shape=circle width=1]
+	subgraph row0 {
+		edge [minlen=25 style=invis weight=1000]
+		rank=same
+		0 [label="(0, 0, 0)"]
+		1 [label="(0, 1, 0)"]
+		2 [label="(0, 2, 0)"]
+		3 [label="(1, 0, 0)"]
+		4 [label="(1, 1, 0)"]
+		5 [label="(1, 2, 0)"]
+		6 [label="(2, 0, 0)"]
+		7 [label="(2, 1, 0)"]
+		8 [label="(2, 2, 0)"]
+		9 [label="(3, 0, 0)"]
+		10 [label="(3, 1, 0)"]
+		11 [label="(3, 2, 0)"]
+		0 -> 1
+		1 -> 2
+		2 -> 3
+		3 -> 4
+		4 -> 5
+		5 -> 6
+		6 -> 7
+		7 -> 8
+		8 -> 9
+		9 -> 10
+		10 -> 11
+	}
+	subgraph row1 {
+		edge [minlen=25 style=invis weight=1000]
+		rank=same
+		12 [label="(0, 0, 1)"]
+		13 [label="(0, 1, 1)"]
+		14 [label="(0, 2, 1)"]
+		15 [label="(1, 0, 1)"]
+		16 [label="(1, 1, 1)"]
+		17 [label="(1, 2, 1)"]
+		18 [label="(2, 0, 1)"]
+		19 [label="(2, 1, 1)"]
+		20 [label="(2, 2, 1)"]
+		21 [label="(3, 0, 1)"]
+		22 [label="(3, 1, 1)"]
+		23 [label="(3, 2, 1)"]
+		12 -> 13
+		13 -> 14
+		14 -> 15
+		15 -> 16
+		16 -> 17
+		17 -> 18
+		18 -> 19
+		19 -> 20
+		20 -> 21
+		21 -> 22
+		22 -> 23
+	}
+	subgraph subgraph_grid {
+		edge [minlen=25 style=invis weight=1000]
+		0 -> 12
+		1 -> 13
+		2 -> 14
+		3 -> 15
+		4 -> 16
+		5 -> 17
+		6 -> 18
+		7 -> 19
+		8 -> 20
+		9 -> 21
+		10 -> 22
+		11 -> 23
+	}
+	subgraph subgraph_input_edges {
+		edge [constraint=false]
+		0 -> 3 [label="α.(g0)" color="#2066a3" fontcolor="#2066a3"]
+		0 -> 0 [label="(1.0 - α).(g0)" color="#830005" fontcolor="#830005"]
+		12 -> 3 [label="α.(g0)" color="#99ff00" fontcolor="#99ff00"]
+		12 -> 0 [label="(1.0 - α).(g0)" color="#ddb4b0" fontcolor="#ddb4b0"]
+		1 -> 3 [label="α.(g0).β" color="#4f435b" fontcolor="#4f435b"]
+		1 -> 0 [label="(1.0 - α).(g0).β" color="#96b57b" fontcolor="#96b57b"]
+		1 -> 4 [label="α.(g0).(1.0 - β)" color="#830005" fontcolor="#830005"]
+		1 -> 1 [label="(1.0 - α).(g0).(1.0 - β)" color="#00fdd0" fontcolor="#00fdd0"]
+		13 -> 3 [label="α.(g0).β" color="#4f435b" fontcolor="#4f435b"]
+		13 -> 0 [label="(1.0 - α).(g0).β" color="#000000" fontcolor="#000000"]
+		13 -> 4 [label="α.(g0).(1.0 - β)" color="#004740" fontcolor="#004740"]
+		13 -> 1 [label="(1.0 - α).(g0).(1.0 - β)" color="#4e2500" fontcolor="#4e2500"]
+		2 -> 4 [label="α.(g0).β" color="#bdb8ff" fontcolor="#bdb8ff"]
+		2 -> 1 [label="(1.0 - α).(g0).β" color="#99ff00" fontcolor="#99ff00"]
+		2 -> 5 [label="α.(g0).(1.0 - β)" color="#23003f" fontcolor="#23003f"]
+		2 -> 2 [label="(1.0 - α).(g0).(1.0 - β)" color="#ffa62c" fontcolor="#ffa62c"]
+		14 -> 4 [label="α.(g0).β" color="#99ff00" fontcolor="#99ff00"]
+		14 -> 1 [label="(1.0 - α).(g0).β" color="#000000" fontcolor="#000000"]
+		14 -> 5 [label="α.(g0).(1.0 - β)" color="#00adc8" fontcolor="#00adc8"]
+		14 -> 2 [label="(1.0 - α).(g0).(1.0 - β)" color="#004740" fontcolor="#004740"]
+		3 -> 6 [label="α.(g0)" color="#a47cb4" fontcolor="#a47cb4"]
+		3 -> 3 [label="(1.0 - α).(g0)" color="#23003f" fontcolor="#23003f"]
+		3 -> 4 [label="α.(g2).β" color="#008900" fontcolor="#008900"]
+		3 -> 1 [label="(1.0 - α).(g2).β" color="#a57d00" fontcolor="#a57d00"]
+		3 -> 5 [label="α.(g2).(1.0 - β)" color="#004740" fontcolor="#004740"]
+		3 -> 2 [label="(1.0 - α).(g2).(1.0 - β)" color="#00fdd0" fontcolor="#00fdd0"]
+		3 -> 15 [label="α.(g1)" color="#99ff00" fontcolor="#99ff00"]
+		3 -> 12 [label="(1.0 - α).(g1)" color="#99ff00" fontcolor="#99ff00"]
+		15 -> 6 [label="α.(g0)" color="#6c004e" fontcolor="#6c004e"]
+		15 -> 3 [label="(1.0 - α).(g0)" color="#314d00" fontcolor="#314d00"]
+		15 -> 4 [label="α.(g2).β" color="#6c004e" fontcolor="#6c004e"]
+		15 -> 1 [label="(1.0 - α).(g2).β" color="#00009e" fontcolor="#00009e"]
+		15 -> 5 [label="α.(g2).(1.0 - β)" color="#96b57b" fontcolor="#96b57b"]
+		15 -> 2 [label="(1.0 - α).(g2).(1.0 - β)" color="#a57d00" fontcolor="#a57d00"]
+		4 -> 6 [label="α.(g0).β" color="#4f435b" fontcolor="#4f435b"]
+		4 -> 3 [label="(1.0 - α).(g0).β" color="#ffa62c" fontcolor="#ffa62c"]
+		4 -> 7 [label="α.(g0).(1.0 - β)" color="#96b57b" fontcolor="#96b57b"]
+		4 -> 4 [label="(1.0 - α).(g0).(1.0 - β)" color="#fef591" fontcolor="#fef591"]
+		4 -> 15 [label="α.(g1).β" color="#4f435b" fontcolor="#4f435b"]
+		4 -> 12 [label="(1.0 - α).(g1).β" color="#877068" fontcolor="#877068"]
+		4 -> 16 [label="α.(g1).(1.0 - β)" color="#2066a3" fontcolor="#2066a3"]
+		4 -> 13 [label="(1.0 - α).(g1).(1.0 - β)" color="#877068" fontcolor="#877068"]
+		16 -> 6 [label="α.(g0).β" color="#008900" fontcolor="#008900"]
+		16 -> 3 [label="(1.0 - α).(g0).β" color="#bdb8ff" fontcolor="#bdb8ff"]
+		16 -> 7 [label="α.(g0).(1.0 - β)" color="#ff7266" fontcolor="#ff7266"]
+		16 -> 4 [label="(1.0 - α).(g0).(1.0 - β)" color="#23003f" fontcolor="#23003f"]
+		5 -> 7 [label="α.(g0).β" color="#00009e" fontcolor="#00009e"]
+		5 -> 4 [label="(1.0 - α).(g0).β" color="#9ce5ff" fontcolor="#9ce5ff"]
+		5 -> 8 [label="α.(g0).(1.0 - β)" color="#ff80d2" fontcolor="#ff80d2"]
+		5 -> 5 [label="(1.0 - α).(g0).(1.0 - β)" color="#ff80d2" fontcolor="#ff80d2"]
+		5 -> 16 [label="α.(g1).β" color="#00adc8" fontcolor="#00adc8"]
+		5 -> 13 [label="(1.0 - α).(g1).β" color="#877068" fontcolor="#877068"]
+		5 -> 17 [label="α.(g1).(1.0 - β)" color="#ddb4b0" fontcolor="#ddb4b0"]
+		5 -> 14 [label="(1.0 - α).(g1).(1.0 - β)" color="#ddb4b0" fontcolor="#ddb4b0"]
+		17 -> 7 [label="α.(g0).β" color="#ff7266" fontcolor="#ff7266"]
+		17 -> 4 [label="(1.0 - α).(g0).β" color="#4e2500" fontcolor="#4e2500"]
+		17 -> 8 [label="α.(g0).(1.0 - β)" color="#9ce5ff" fontcolor="#9ce5ff"]
+		17 -> 5 [label="(1.0 - α).(g0).(1.0 - β)" color="#ff80d2" fontcolor="#ff80d2"]
+		6 -> 9 [label="α.(g0)" color="#a47cb4" fontcolor="#a47cb4"]
+		6 -> 6 [label="(1.0 - α).(g0)" color="#00009e" fontcolor="#00009e"]
+		6 -> 7 [label="α.(g2).β" color="#2066a3" fontcolor="#2066a3"]
+		6 -> 4 [label="(1.0 - α).(g2).β" color="#00009e" fontcolor="#00009e"]
+		6 -> 8 [label="α.(g2).(1.0 - β)" color="#a57d00" fontcolor="#a57d00"]
+		6 -> 5 [label="(1.0 - α).(g2).(1.0 - β)" color="#00adc8" fontcolor="#00adc8"]
+		6 -> 18 [label="α.(g1)" color="#a47cb4" fontcolor="#a47cb4"]
+		6 -> 15 [label="(1.0 - α).(g1)" color="#000000" fontcolor="#000000"]
+		6 -> 16 [label="α.(g3).β" color="#ffa62c" fontcolor="#ffa62c"]
+		6 -> 13 [label="(1.0 - α).(g3).β" color="#00adc8" fontcolor="#00adc8"]
+		6 -> 17 [label="α.(g3).(1.0 - β)" color="#8d39ff" fontcolor="#8d39ff"]
+		6 -> 14 [label="(1.0 - α).(g3).(1.0 - β)" color="#ffa62c" fontcolor="#ffa62c"]
+		18 -> 9 [label="α.(g0)" color="#fef591" fontcolor="#fef591"]
+		18 -> 6 [label="(1.0 - α).(g0)" color="#4f435b" fontcolor="#4f435b"]
+		18 -> 7 [label="α.(g2).β" color="#99ff00" fontcolor="#99ff00"]
+		18 -> 4 [label="(1.0 - α).(g2).β" color="#ff7266" fontcolor="#ff7266"]
+		18 -> 8 [label="α.(g2).(1.0 - β)" color="#877068" fontcolor="#877068"]
+		18 -> 5 [label="(1.0 - α).(g2).(1.0 - β)" color="#4e2500" fontcolor="#4e2500"]
+		7 -> 9 [label="α.(g0).β" color="#c100ba" fontcolor="#c100ba"]
+		7 -> 6 [label="(1.0 - α).(g0).β" color="#830005" fontcolor="#830005"]
+		7 -> 10 [label="α.(g0).(1.0 - β)" color="#ff7266" fontcolor="#ff7266"]
+		7 -> 7 [label="(1.0 - α).(g0).(1.0 - β)" color="#9ce5ff" fontcolor="#9ce5ff"]
+		7 -> 18 [label="α.(g1).β" color="#2066a3" fontcolor="#2066a3"]
+		7 -> 15 [label="(1.0 - α).(g1).β" color="#877068" fontcolor="#877068"]
+		7 -> 19 [label="α.(g1).(1.0 - β)" color="#6c004e" fontcolor="#6c004e"]
+		7 -> 16 [label="(1.0 - α).(g1).(1.0 - β)" color="#008900" fontcolor="#008900"]
+		19 -> 9 [label="α.(g0).β" color="#8d39ff" fontcolor="#8d39ff"]
+		19 -> 6 [label="(1.0 - α).(g0).β" color="#99ff00" fontcolor="#99ff00"]
+		19 -> 10 [label="α.(g0).(1.0 - β)" color="#00adc8" fontcolor="#00adc8"]
+		19 -> 7 [label="(1.0 - α).(g0).(1.0 - β)" color="#2066a3" fontcolor="#2066a3"]
+		8 -> 10 [label="α.(g0).β" color="#ffa62c" fontcolor="#ffa62c"]
+		8 -> 7 [label="(1.0 - α).(g0).β" color="#004740" fontcolor="#004740"]
+		8 -> 11 [label="α.(g0).(1.0 - β)" color="#8d39ff" fontcolor="#8d39ff"]
+		8 -> 8 [label="(1.0 - α).(g0).(1.0 - β)" color="#99ff00" fontcolor="#99ff00"]
+		8 -> 19 [label="α.(g1).β" color="#ffa62c" fontcolor="#ffa62c"]
+		8 -> 16 [label="(1.0 - α).(g1).β" color="#00fdd0" fontcolor="#00fdd0"]
+		8 -> 20 [label="α.(g1).(1.0 - β)" color="#fef591" fontcolor="#fef591"]
+		8 -> 17 [label="(1.0 - α).(g1).(1.0 - β)" color="#ffa62c" fontcolor="#ffa62c"]
+		20 -> 10 [label="α.(g0).β" color="#ddb4b0" fontcolor="#ddb4b0"]
+		20 -> 7 [label="(1.0 - α).(g0).β" color="#a47cb4" fontcolor="#a47cb4"]
+		20 -> 11 [label="α.(g0).(1.0 - β)" color="#ff80d2" fontcolor="#ff80d2"]
+		20 -> 8 [label="(1.0 - α).(g0).(1.0 - β)" color="#00009e" fontcolor="#00009e"]
+		9 -> 0 [label="(g0)" color="#bdb8ff" fontcolor="#bdb8ff"]
+		21 -> 0 [label="(g0)" color="#6c004e" fontcolor="#6c004e"]
+		10 -> 0 [label="(g0)" color="#23003f" fontcolor="#23003f"]
+		22 -> 0 [label="(g0)" color="#9ce5ff" fontcolor="#9ce5ff"]
+		11 -> 0 [label="(g0)" color="#c100ba" fontcolor="#c100ba"]
+		23 -> 0 [label="(g0)" color="#6c004e" fontcolor="#6c004e"]
+	}
+}

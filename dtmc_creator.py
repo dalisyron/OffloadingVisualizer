@@ -1,17 +1,17 @@
-from symbol import SymbolInfo
+import symbol
+from DiscreteTimeMarkovChain import DiscreteTimeMarkovChain
 
 
 def phi(z):
     return max(z - 1, 0)
 
 
-class MDPCreator:
+class DTMCCreator:
 
-    def __init__(self, Q: int, M: int, N: int, symbol_info: SymbolInfo) -> None:
+    def __init__(self, Q: int, M: int, N: int) -> None:
         self.Q = Q
         self.M = M
         self.N = N
-        self.symbol_info = symbol_info
 
     def get_policy_candidates(self, state):
         q, m, n = state
@@ -38,9 +38,6 @@ class MDPCreator:
         assert(0 <= x < self.Q)
 
         # defs
-        POLICY = self.symbol_info.POLICY
-        BETA = self.symbol_info.BETA
-        BETA_C = self.symbol_info.BETA_C
         N = self.N
         M = self.M
 
@@ -48,18 +45,18 @@ class MDPCreator:
             if y == 0:
                 return [
                     (
-                        [POLICY[0]],
+                        [symbol.PolicySymbol(0)],
                         (x, y, phi(z))
                     )
                 ]
             else:
                 return [
                     (
-                        [POLICY[0], BETA],
+                        [symbol.PolicySymbol(0), symbol.BETA],
                         (x, y - 1, phi(z))
                     ),
                     (
-                        [POLICY[0], BETA_C],
+                        [symbol.PolicySymbol(0), symbol.BETA_C],
                         (x, y, phi(z))
                     )
                 ]
@@ -68,18 +65,18 @@ class MDPCreator:
             if y == 0:
                 return [
                     (
-                        [POLICY[1]],
+                        [symbol.PolicySymbol(1)],
                         (x - 1, 0, N - 1)
                     )
                 ]
             else:
                 return [
                     (
-                        [POLICY[1], BETA],
+                        [symbol.PolicySymbol(1), symbol.BETA],
                         (x - 1, y - 1, N - 1)
                     ),
                     (
-                        [POLICY[1], BETA_C],
+                        [symbol.PolicySymbol(1), symbol.BETA_C],
                         (x - 1, y, N - 1)
                     )
                 ]
@@ -87,11 +84,11 @@ class MDPCreator:
             assert(y == 0 and x > 0)
             return [
                 (
-                    [POLICY[2], BETA],
+                    [symbol.PolicySymbol(2), symbol.BETA],
                     (x - 1, M - 1, phi(z))
                 ),
                 (
-                    [POLICY[2], BETA_C],
+                    [symbol.PolicySymbol(2), symbol.BETA_C],
                     (x - 1, M, phi(z))
                 )
             ]
@@ -99,11 +96,11 @@ class MDPCreator:
             assert(x > 1 and y == 0 and z == 0)
             return [
                 (
-                    [POLICY[3], BETA],
+                    [symbol.PolicySymbol(3), symbol.BETA],
                     (x - 2, M - 1, N - 1)
                 ),
                 (
-                    [POLICY[3], BETA_C],
+                    [symbol.PolicySymbol(3), symbol.BETA_C],
                     (x - 2, M, N - 1)
                 )
             ]
@@ -111,13 +108,9 @@ class MDPCreator:
         print('policy', p)
 
     def get_transitions(self, state):
-        # defs
-        ALPHA = self.symbol_info.ALPHA
-        ALPHA_C = self.symbol_info.ALPHA_C
-        POLICY = self.symbol_info.POLICY
 
         if state[0] == self.Q:
-            return [([POLICY[0]], (0, 0, 0))]
+            return [([symbol.PolicySymbol(0)], (0, 0, 0))]
 
         policies = self.get_policy_candidates(state)
         transitions = []
@@ -126,8 +119,8 @@ class MDPCreator:
             states = self.get_outcomes_for_policy(state, p)
             for s in states:
                 x, y, z = s[1]
-                transitions.append(([ALPHA] + s[0], (x + 1, y, z)))
-                transitions.append(([ALPHA_C] + s[0], (x, y, z)))
+                transitions.append(([symbol.ALPHA] + s[0], (x + 1, y, z)))
+                transitions.append(([symbol.ALPHA_C] + s[0], (x, y, z)))
 
         return transitions
 
@@ -157,5 +150,5 @@ class MDPCreator:
                         adj_list[(i, j, k)].append(t)
 
         # self.format_symbols(adj_list)
-        
-        return adj_list
+
+        return DiscreteTimeMarkovChain(N=self.N, M=self.M, Q=self.Q, adj_list=adj_list)
