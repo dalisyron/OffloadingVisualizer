@@ -26,7 +26,6 @@ class GridGraphRenderer:
         dot = gv.Digraph()
         dot.graph_attr['label'] = 'Markov Chain for Task Offloading'
         dot.graph_attr['labelloc'] = 't'
-        dot.graph_attr['margin'] = '5'
 
         dot.node_attr['shape'] = 'circle'
         dot.node_attr['width'] = '1'
@@ -40,7 +39,7 @@ class GridGraphRenderer:
             row_graph = gv.Digraph('row{}'.format(r))
             row_graph.edge_attr['style'] = 'invis'
             row_graph.edge_attr['weight'] = '1000'
-            row_graph.edge_attr['minlen'] = '25'
+            row_graph.edge_attr['minlen'] = '5'
 
 
             row_graph.attr(rank = 'same')

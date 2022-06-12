@@ -1,3 +1,4 @@
+from edge_generator import Q
 import symbol
 from DiscreteTimeMarkovChain import DiscreteTimeMarkovChain
 
@@ -35,7 +36,7 @@ class DTMCCreator:
     # w/ x < Q
     def get_outcomes_for_policy(self, state, p):
         x, y, z = state
-        assert(0 <= x < self.Q)
+        assert(0 <= x <= self.Q)
 
         # defs
         N = self.N
@@ -109,9 +110,6 @@ class DTMCCreator:
 
     def get_transitions(self, state):
 
-        if state[0] == self.Q:
-            return [([symbol.PolicySymbol(0)], (0, 0, 0))]
-
         policies = self.get_policy_candidates(state)
         transitions = []
 
@@ -119,8 +117,12 @@ class DTMCCreator:
             states = self.get_outcomes_for_policy(state, p)
             for s in states:
                 x, y, z = s[1]
-                transitions.append(([symbol.ALPHA] + s[0], (x + 1, y, z)))
-                transitions.append(([symbol.ALPHA_C] + s[0], (x, y, z)))
+
+                if (x < self.Q or p != 0):
+                    transitions.append(([symbol.ALPHA] + s[0], (x + 1, y, z)))
+                    transitions.append(([symbol.ALPHA_C] + s[0], (x, y, z)))
+                else:
+                    transitions.append((s[0], (x, y, z)))
 
         return transitions
 

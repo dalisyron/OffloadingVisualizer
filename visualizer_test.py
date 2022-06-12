@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+import sys
 from dtmc_creator import DTMCCreator
 from dtmc_visualizer import DTMCVisualizer
 
-creator = DTMCCreator(3, 2, 2)
+creator = DTMCCreator(2, 1, 2)
 chain = creator.create()
 
 visualizer = DTMCVisualizer(chain)
